@@ -1,8 +1,27 @@
-﻿@{
+﻿@model InvoiceUpload.Dtos.LoginDto
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if (TempData["ErrorMessage"] is not null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>   
+}
+
+<form class="form-signin" asp-action="login">
+    <h1 class="h3 mb-3 font-weight-normal">請登入</h1>
+    <label for="inputPhone" class="sr-only">手機號碼</label>
+    <input asp-for="Phone" type="tel" id="inputPhone" class="form-control" placeholder="手機號碼" autofocus>
+     <span asp-validation-for="Phone" class="text-danger"></span>
+    <label for="inputPassword" class="sr-only">密碼</label>
+    <input asp-for="Password" type="password" id="inputPassword" class="form-control" placeholder="密碼">
+    <span asp-validation-for="Password" class="text-danger"></span>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">登入</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

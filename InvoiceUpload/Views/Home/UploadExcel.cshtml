@@ -1,0 +1,30 @@
+@model InvoiceUpload.Dtos.UploadExcelDto
+
+@{
+    ViewData["Title"] = "UploadExcel";
+}
+
+@if (TempData["ErrorMessage"] is not null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>   
+}
+
+@if (TempData["SuccessMessage"] is not null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>   
+}
+
+<a class="btn btn-primary btn-lg btn-block" asp-action="DownloadExcel" download><i class="fa fa-download"></i>下載發票匯入檔</a>
+
+<form asp-action="UploadExcelAction" enctype="multipart/form-data">
+    <div class="custom-file">
+        <input asp-for="FormFile" type="file" class="custom-file-input">
+        <label asp-for="FormFile" class="custom-file-label">選擇檔案</label>
+        <span asp-validation-for="FormFile"></span>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Upload"/>
+</form>
